@@ -59,7 +59,7 @@ void CSettings::SetDefault()
 	snprintf(covers2d_path, sizeof(covers2d_path), "%simages/2D/", ConfigPath);
 	snprintf(coversFull_path, sizeof(coversFull_path), "%simages/full/", ConfigPath);
 	snprintf(disc_path, sizeof(disc_path), "%simages/disc/", ConfigPath);
-	snprintf(titlestxt_path, sizeof(titlestxt_path), "%stitles", ConfigPath);
+	snprintf(titlestxt_path, sizeof(titlestxt_path), "%stitles/", ConfigPath);
 	snprintf(languagefiles_path, sizeof(languagefiles_path), "%slanguage/", ConfigPath);
 	snprintf(update_path, sizeof(update_path), "%s/apps/usbloader_gx/", BootDevice);
 	snprintf(BNRCachePath, sizeof(BNRCachePath), "%s/apps/usbloader_gx/cache_bnr/", BootDevice);
@@ -78,7 +78,7 @@ void CSettings::SetDefault()
 	strlcpy(NandEmuChanPath, NandEmuPath, sizeof(NandEmuChanPath));
 	strlcpy(GameCubePath, "usb1:/games/", sizeof(GameCubePath));
 	strlcpy(GameCubeSDPath, "sd:/games/", sizeof(GameCubeSDPath));
-	strlcpy(CustomBannersURL, "http://copy.com/vRN3HgFVyk9u7YuB/Public/", sizeof(CustomBannersURL));
+	strlcpy(CustomBannersURL, "http://nintendont.gxarena.com/banners/", sizeof(CustomBannersURL));
 	theme[0] = 0;
 	language_path[0] = 0;
 	ogg_path[0] = 0;
@@ -127,7 +127,7 @@ void CSettings::SetDefault()
 	ParentalBlocks = BLOCK_ALL;
 	InstallToDir = INSTALL_TO_NAME_GAMEID;
 	GameSplit = GAMESPLIT_4GB;
-	InstallPartitions = ONLY_GAME_PARTITION;
+	InstallPartitions = REMOVE_UPDATE_PARTITION;
 	HomeMenu = HOME_MENU_DEFAULT;
 	MultiplePartitions = OFF;
 	BlockIOSReload = AUTO;
@@ -185,14 +185,16 @@ void CSettings::SetDefault()
 	DMLJPNPatch = OFF;
 	DMLDebug = OFF;
 	NINDeflicker = OFF;
+	NINWiiUWide = widescreen;
+	NINVideoScale = 40;
+	NINVideoOffset = 0;
 	NINMCEmulation = ON;
 	NINMCSize = 2;
 	NINAutoboot = ON;
 	NINSettings = AUTO;
 	NINUSBHID = OFF;
-	NINMaxPads = 1;
+	NINMaxPads = 4;
 	NINNativeSI = OFF;
-	NINWiiUWide = widescreen;
 	NINOSReport = OFF;
 	NINLED = OFF;
 	NINLog = OFF;
@@ -436,6 +438,9 @@ bool CSettings::Save()
 	fprintf(file, "DMLJPNPatch = %d\n", DMLJPNPatch);
 	fprintf(file, "DMLDebug = %d\n", DMLDebug);
 	fprintf(file, "NINDeflicker = %d\n", NINDeflicker);
+	fprintf(file, "NINWiiUWide = %d\n", NINWiiUWide);
+	fprintf(file, "NINVideoScale = %d\n", NINVideoScale);
+	fprintf(file, "NINVideoOffset = %d\n", NINVideoOffset);
 	fprintf(file, "NINMCEmulation = %d\n", NINMCEmulation);
 	fprintf(file, "NINMCSize = %d\n", NINMCSize);
 	fprintf(file, "NINAutoboot = %d\n", NINAutoboot);
@@ -443,7 +448,6 @@ bool CSettings::Save()
 	fprintf(file, "NINUSBHID = %d\n", NINUSBHID);
 	fprintf(file, "NINMaxPads = %d\n", NINMaxPads);
 	fprintf(file, "NINNativeSI = %d\n", NINNativeSI);
-	fprintf(file, "NINWiiUWide = %d\n", NINWiiUWide);
 	fprintf(file, "NINOSReport = %d\n", NINOSReport);
 	fprintf(file, "NINLED = %d\n", NINLED);
 	fprintf(file, "NINLog = %d\n", NINLog);
@@ -927,6 +931,21 @@ bool CSettings::SetSetting(char *name, char *value)
 		NINDeflicker = atoi(value);
 		return true;
 	}
+	else if (strcmp(name, "NINWiiUWide") == 0)
+	{
+		NINWiiUWide = atoi(value);
+		return true;
+	}
+	else if (strcmp(name, "NINVideoScale") == 0)
+	{
+		NINVideoScale = atoi(value);
+		return true;
+	}
+	else if (strcmp(name, "NINVideoOffset") == 0)
+	{
+		NINVideoOffset = atoi(value);
+		return true;
+	}
 	else if (strcmp(name, "NINMCEmulation") == 0)
 	{
 		NINMCEmulation = atoi(value);
@@ -960,11 +979,6 @@ bool CSettings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "NINNativeSI") == 0)
 	{
 		NINNativeSI = atoi(value);
-		return true;
-	}
-	else if (strcmp(name, "NINWiiUWide") == 0)
-	{
-		NINWiiUWide = atoi(value);
 		return true;
 	}
 	else if (strcmp(name, "NINOSReport") == 0)
@@ -1170,8 +1184,9 @@ bool CSettings::SetSetting(char *name, char *value)
 	else if (strcmp(name, "CustomBannersURL") == 0)
 	{
 		if( strcmp(value, "http://dl.dropbox.com/u/101209384/") == 0 ||
-			strcmp(value, "http://dl.dropboxusercontent.com/u/101209384/") == 0)
-			strlcpy(CustomBannersURL, "http://copy.com/vRN3HgFVyk9u7YuB/Public/", sizeof(CustomBannersURL)); // update banner URL
+			strcmp(value, "http://dl.dropboxusercontent.com/u/101209384/") == 0 ||
+			strcmp(value, "http://copy.com/vRN3HgFVyk9u7YuB/Public/") == 0)
+			strlcpy(CustomBannersURL, "http://nintendont.gxarena.com/banners/", sizeof(CustomBannersURL)); // update banner URL
 		else
 			strlcpy(CustomBannersURL, value, sizeof(CustomBannersURL));
 		return true;

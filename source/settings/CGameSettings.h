@@ -41,6 +41,7 @@ typedef struct _GameCFG
 	short DMLJPNPatch;
 	short DMLDebug;
 	short NINDeflicker;
+	short NINVideoScale;
 	short NINMCEmulation;
 	short NINMCSize;
 	short NINUSBHID;
@@ -96,6 +97,7 @@ typedef struct _GameCFG
 		this->DMLJPNPatch = game.DMLJPNPatch;
 		this->DMLDebug = game.DMLDebug;
 		this->NINDeflicker = game.NINDeflicker;
+		this->NINVideoScale = game.NINVideoScale;
 		this->NINMCEmulation = game.NINMCEmulation;
 		this->NINMCSize = game.NINMCSize;
 		this->NINUSBHID = game.NINUSBHID;

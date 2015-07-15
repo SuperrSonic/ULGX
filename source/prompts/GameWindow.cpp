@@ -482,9 +482,23 @@ void GameWindow::ChangeGame(int EffectDirection)
 	{
 		float size = GCGames::Instance()->GetGameSize((const char *) header->id);
 		sizeTxt->SetTextf("%.2fGB", size); //set size text;
-		// TODO: Add GC disc size check
+		// TODO: Add GC multi disc size check
 	}
-
+	
+	// Rescale the disc if the picture is bigger (HighRes Disc art from gametdb)
+	/*
+	if(diskImgData->GetWidth() > 160)
+	{
+		diskImg->SetScale(160.0f / diskImgData->GetWidth());
+		diskImg->SetPosition( -(diskImgData->GetWidth() - 160)/2 , -(diskImgData->GetHeight() - 160)/2 );  
+	}
+	else
+	{
+		diskImg->SetScale(1.0f);
+		diskImg->SetPosition( 0, 0);
+	}
+	*/
+	
 	diskImg->SetImage(diskImgData);
 	nameTxt->SetText(GameTitles.GetTitle(header));
 	playcntTxt->SetTextf("%s: %i", tr( "Play Count" ), GameStatistics.GetPlayCount(header));
@@ -720,6 +734,8 @@ void GameWindow::BootGame(struct discHdr *header)
 
 	int gameIOS = game_cfg->ios == INHERIT ? Settings.cios : game_cfg->ios;
 	int gameNandEmuMode = game_cfg->NandEmuMode == INHERIT ? Settings.NandEmuMode : game_cfg->NandEmuMode;
+	if(header->type == TYPE_GAME_EMUNANDCHAN)
+		gameNandEmuMode = game_cfg->NandEmuMode == INHERIT ? Settings.NandEmuChanMode : game_cfg->NandEmuMode;
 
 	if (game_cfg->loadalternatedol == 2)
 	{
@@ -757,15 +773,18 @@ void GameWindow::BootGame(struct discHdr *header)
 
 	if(header->type == TYPE_GAME_EMUNANDCHAN)
 	{
-		// If NandEmuPath is on root of the first FAT32 partition, allow Waninkoko's rev17-21 cIOS for EmuNAND Channels
-		bool NandEmu_compatible = false;
-		const char *NandEmuChanPath = game_cfg->NandEmuPath.size() == 0 ? Settings.NandEmuChanPath : game_cfg->NandEmuPath.c_str();
-		NandEmu_compatible = IosLoader::is_NandEmu_compatible(NandEmuChanPath, gameIOS);
-			
-		if(!IosLoader::IsD2X(gameIOS) && !NandEmu_compatible)
+		if(gameNandEmuMode != EMUNAND_NEEK)
 		{
-			ShowError(tr("Launching emulated nand channels only works on d2x cIOS! Change game IOS to a d2x cIOS first."));
-			return;
+			// If NandEmuPath is on root of the first FAT32 partition, allow Waninkoko's rev17-21 cIOS for EmuNAND Channels
+			bool NandEmu_compatible = false;
+			const char *NandEmuChanPath = game_cfg->NandEmuPath.size() == 0 ? Settings.NandEmuChanPath : game_cfg->NandEmuPath.c_str();
+			NandEmu_compatible = IosLoader::is_NandEmu_compatible(NandEmuChanPath, gameIOS);
+				
+			if(!IosLoader::IsD2X(gameIOS) && !NandEmu_compatible)
+			{
+				ShowError(tr("Launching emulated nand channels only works on d2x cIOS! Change game IOS to a d2x cIOS first."));
+				return;
+			}
 		}
 	}
 
@@ -783,9 +802,12 @@ void GameWindow::BootGame(struct discHdr *header)
 	GameStatistics.Save();
 
 	//Just calling that shuts down everything and starts game
-	GameBooter::BootGame(header);
+	int ret = GameBooter::BootGame(header);
 	
 	//If the launch is canceled, reduce playCount
-	GameStatistics.SetPlayCount(header->id, GameStatistics.GetPlayCount(header->id)-1);
-	GameStatistics.Save();
+	if(ret == -1)
+	{
+		GameStatistics.SetPlayCount(header->id, GameStatistics.GetPlayCount(header->id)-1);
+		GameStatistics.Save();
+	}
 }

@@ -217,6 +217,7 @@ bool CGameSettings::Save()
 		fprintf(f, "DMLJPNPatch:%d; ", GameList[i].DMLJPNPatch);
 		fprintf(f, "DMLDebug:%d; ", GameList[i].DMLDebug);
 		fprintf(f, "NINDeflicker:%d; ", GameList[i].NINDeflicker);
+		fprintf(f, "NINVideoScale:%d; ", GameList[i].NINVideoScale);
 		fprintf(f, "NINMCEmulation:%d; ", GameList[i].NINMCEmulation);
 		fprintf(f, "NINMCSize:%d; ", GameList[i].NINMCSize);
 		fprintf(f, "NINUSBHID:%d; ", GameList[i].NINUSBHID);
@@ -404,6 +405,11 @@ bool CGameSettings::SetSetting(GameCFG & game, const char *name, const char *val
 	else if(strcmp(name, "NINDeflicker") == 0)
 	{
 		game.NINDeflicker = atoi(value);
+		return true;
+	}
+	else if(strcmp(name, "NINVideoScale") == 0)
+	{
+		game.NINVideoScale = atoi(value);
 		return true;
 	}
 	else if(strcmp(name, "NINMCEmulation") == 0)
@@ -633,6 +639,7 @@ void CGameSettings::SetDefault(GameCFG &game)
 	game.DMLJPNPatch = INHERIT;
 	game.DMLDebug = INHERIT;
 	game.NINDeflicker = INHERIT;
+	game.NINVideoScale = INHERIT;
 	game.NINMCEmulation = INHERIT;
 	game.NINMCSize = INHERIT;
 	game.NINUSBHID = INHERIT;

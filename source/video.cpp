@@ -123,11 +123,7 @@ void InitVideo()
 	
 	vmode = VIDEO_GetPreferredMode(NULL); // get default video mode
 
-	vmode->viWidth = Settings.widescreen ? 708 : 686;
-    vmode->fbWidth = 640;
-    vmode->efbHeight = 480;
-    vmode->xfbHeight = 480;
-    vmode->viHeight = 480;
+	vmode->viWidth = Settings.widescreen ? 704 : 686;
 
 	if (Settings.PAL50)
 	{
