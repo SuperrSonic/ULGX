@@ -20,12 +20,12 @@
 #include <gctypes.h>
 
 #define NIN_MAGIC					0x01070CF6
-#define NIN_CFG_VERSION				0x00000004
+#define NIN_CFG_VERSION				0x00000005
 
 typedef struct NIN_CFG 
 {
 	u32		Magicbytes;		// 0x01070CF6
-	u32		Version;		// 0x00000004 since v3.354
+	u32		Version;		// 0x00000005 since v3.358
 	u32		Config;
 	u32		VideoMode;
 	u32		Language;

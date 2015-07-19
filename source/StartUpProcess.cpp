@@ -181,7 +181,7 @@ bool StartUpProcess::USBSpinUp()
 	if(Settings.USBPort == 1 || Settings.USBPort == 2)
 		handle1 = DeviceHandler::GetUSB1Interface();
 		
-	// wait 20 sec for the USB to spin up...stupid slow ass HDD
+	// wait 20 sec for the USB to spin up...
 	do
 	{
 		if(handle0)

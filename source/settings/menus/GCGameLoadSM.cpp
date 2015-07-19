@@ -189,7 +189,6 @@ void GCGameLoadSM::SetOptionNames()
 		Options->SetName(Idx++, "%s", tr( "Video Mode" ));
 		Options->SetName(Idx++, "%s", tr( "Progressive Patch" ));
 		Options->SetName(Idx++, "%s", tr( "Video Deflicker" ));
-		Options->SetName(Idx++, "%s", tr( "Width Scaler" ));
 		Options->SetName(Idx++, "%s", tr( "Force Widescreen" ));
 		Options->SetName(Idx++, "%s", tr( "Ocarina" ));
 		Options->SetName(Idx++, "%s", tr( "Memory Card Emulation" ));
@@ -348,12 +347,6 @@ void GCGameLoadSM::SetOptionValues()
 			Options->SetValue(Idx++, tr("Use global"));
 		else
 			Options->SetValue(Idx++, "%s", tr(OnOffText[GameConfig.NINDeflicker]));
-
-		//! Settings: NIN Width Scaler
-		if(GameConfig.NINVideoScale == INHERIT)
-			Options->SetValue(Idx++, tr("Use global"));
-		else
-			Options->SetValue(Idx++, "%s", tr(OnOffText[GameConfig.NINVideoScale]));
 
 		//! Settings: DML + NIN Force Widescreen
 		if(GameConfig.DMLWidescreen == INHERIT)
@@ -651,12 +644,6 @@ int GCGameLoadSM::GetMenuInternal()
 	if(currentGCmode == GC_MODE_NINTENDONT && ret == ++Idx)
 	{
 		if (++GameConfig.NINDeflicker >= MAX_ON_OFF) GameConfig.NINDeflicker = INHERIT;
-	}
-
-	//! Settings: NIN Width Scaler
-	if(currentGCmode == GC_MODE_NINTENDONT && ret == ++Idx)
-	{
-		if (++GameConfig.NINVideoScale >= MAX_ON_OFF) GameConfig.NINVideoScale = INHERIT;
 	}
 
 	//! Settings: NIN Force Widescreen
