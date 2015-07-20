@@ -192,6 +192,7 @@ class CSettings
 		short NINWiiUWide;
 		short NINVideoScale;
 		s8 NINVideoOffset;
+		short NINRemlimit;
 		s8 NINMCEmulation;
 		short NINMCSize;
 		short NINAutoboot;

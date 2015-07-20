@@ -972,6 +972,7 @@ int GameBooter::BootNintendont(struct discHdr *gameHdr)
 	u8 ninLogChoice = game_cfg->NINLog == INHERIT ? Settings.NINLog : game_cfg->NINLog;
 	s8 ninVideoScale = Settings.NINVideoScale;
 	s8 ninVideoOffset = Settings.NINVideoOffset;
+	u8 ninRemlimit = Settings.NINRemlimit;
 	const char *ninLoaderPath = game_cfg->NINLoaderPath.size() == 0 ? Settings.NINLoaderPath : game_cfg->NINLoaderPath.c_str();
 
 
@@ -1404,7 +1405,7 @@ int GameBooter::BootNintendont(struct discHdr *gameHdr)
 		nin_config->Config |= NIN_CFG_NATIVE_SI; // v2.189+
 	if(ninWiiUWideChoice)
 		nin_config->Config |= NIN_CFG_WIIU_WIDE; // v2.258+
-	
+
 	// Max Pads
 	nin_config->MaxPads = ninMaxPadsChoice; // NIN_CFG_VERSION 2 r42
 	
@@ -1419,13 +1420,15 @@ int GameBooter::BootNintendont(struct discHdr *gameHdr)
 	if(NIN_cfg_version == 3)
 		nin_config->MemCardBlocks	= ninMCSizeChoice; 	// NIN_CFG_VERSION 3 v1.135
 	// Memory Card Emulation Blocs size + Aspect ratio with NIN_CFG v4
-	else if(NIN_cfg_version == 4)
+	else if(NIN_cfg_version == 5)
 	{
 		nin_config->MemCardBlocksV4 = ninMCSizeChoice; 	// NIN_CFG_VERSION 4 v3.354
 		nin_config->VideoScale		= ninVideoScale; 	// v3.354+
 		nin_config->VideoOffset		= ninVideoOffset; 	// v3.354+
 	}
-	
+
+	if(ninRemlimit)
+		nin_config->Config |= NIN_CFG_REMLIMIT; // v3.358+
 	
 	// Setup Video Mode
 	if(ninVideoChoice == DML_VIDEO_NONE)				// No video mode changes

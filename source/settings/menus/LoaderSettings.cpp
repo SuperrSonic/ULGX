@@ -233,6 +233,7 @@ LoaderSettings::LoaderSettings()
 	Options->SetName(Idx++, "%s", tr( "WiiU Widescreen" ));
 	Options->SetName(Idx++, "%s", tr( "Video scale" ));
 	Options->SetName(Idx++, "%s", tr( "Video offset" ));
+	Options->SetName(Idx++, "%s", tr( "Unlock Read Speed" ));
 	Options->SetName(Idx++, "%s", tr( "Memory Card Emulation" ));
 	Options->SetName(Idx++, "%s", tr( "Memory Card Blocks Size" ));
 	Options->SetName(Idx++, "%s", tr( "USB-HID Controller" ));
@@ -428,6 +429,9 @@ void LoaderSettings::SetOptionValues()
 
 	//! Settings: NIN VideoOffset
 	Options->SetValue(Idx++, "%d (-20~20)", Settings.NINVideoOffset);
+
+	//! Settings: NIN Unlock Read Speed
+	Options->SetValue(Idx++, "%s", tr(OnOffText[Settings.NINRemlimit]));
 
 	//! Settings: NIN Memory Card Emulation
 	Options->SetValue(Idx++, "%s", tr(NINMCText[Settings.NINMCEmulation]));
@@ -800,6 +804,12 @@ int LoaderSettings::GetMenuInternal()
 		int ret = OnScreenNumpad(entrie, sizeof(entrie));
 		if(ret)
 			Settings.NINVideoOffset = LIMIT(atoi(entrie), -20, 20);
+	}
+
+    //! Settings: NIN Unlock Read Speed
+	else if (ret == ++Idx)
+	{
+		if (++Settings.NINRemlimit >= MAX_ON_OFF) Settings.NINRemlimit = 0;
 	}
 
 	//! Settings: NIN Memory Card Emulation

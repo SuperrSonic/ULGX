@@ -63,15 +63,16 @@ enum ninconfig
 	NIN_CFG_LOG			= (1<<12),	// v1.109
 	NIN_CFG_MC_MULTI	= (1<<13),	// v1.135
 	NIN_CFG_NATIVE_SI	= (1<<14),	// v2.189
-	NIN_CFG_WIIU_WIDE	= (1<<15),	//v2.258
+	NIN_CFG_WIIU_WIDE	= (1<<15),	// v2.258
+	NIN_CFG_REMLIMIT 	= (1<<16), // v3.358
 };
 
 enum ninvideomode
 {
-	NIN_VID_AUTO		= (0<<16),
-	NIN_VID_FORCE		= (1<<16),
-	NIN_VID_NONE		= (2<<16), // replaced by FORCE_DF in v2.200 - v2.207
-	NIN_VID_FORCE_DF	= (4<<16), // v2.208+
+	NIN_VID_AUTO		= (0<<17),
+	NIN_VID_FORCE		= (1<<17),
+	NIN_VID_NONE		= (2<<17), // replaced by FORCE_DF in v2.200 - v2.207
+	NIN_VID_FORCE_DF	= (4<<17), // v2.208+
 
 	NIN_VID_MASK		= NIN_VID_AUTO|NIN_VID_FORCE|NIN_VID_NONE|NIN_VID_FORCE_DF,
 
