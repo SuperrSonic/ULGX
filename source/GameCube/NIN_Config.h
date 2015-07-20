@@ -56,7 +56,7 @@ enum ninconfig
 	NIN_CFG_FORCE_WIDE	= (1<<5),
 	NIN_CFG_FORCE_PROG	= (1<<6),
 	NIN_CFG_AUTO_BOOT	= (1<<7),
-	NIN_CFG_HID			= (1<<8),
+	NIN_CFG_REMLIMIT	= (1<<8),  // v3.358
 	NIN_CFG_OSREPORT	= (1<<9),
 	NIN_CFG_USB			= (1<<10),	// r40
 	NIN_CFG_LED			= (1<<11),	// v1.45
@@ -64,7 +64,7 @@ enum ninconfig
 	NIN_CFG_MC_MULTI	= (1<<13),	// v1.135
 	NIN_CFG_NATIVE_SI	= (1<<14),	// v2.189
 	NIN_CFG_WIIU_WIDE	= (1<<15),	// v2.258
-	NIN_CFG_REMLIMIT 	= (1<<16), // v3.358
+	NIN_CFG_HID  		= (1<<16),
 };
 
 enum ninvideomode
