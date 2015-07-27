@@ -41,7 +41,7 @@ class BannerWindow : public GuiWindow
 		void ChangeGame(bool playsound);
 
 		static const float fBannerWidth = 608.f;
-		static const float fBannerHeight = 448.f;
+		static const float fBannerHeight = 456.f;
 		static const float fIconWidth = 128.f;
 		static const float fIconHeight = 96.f;
 

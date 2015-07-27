@@ -168,8 +168,8 @@ void CSettings::SetDefault()
 	BannerZoomDuration = 30; // frames
 	BannerProjectionOffsetX = (!widescreen || PAL50) ? 0.0f : 2.0f;
 	BannerProjectionOffsetY = PAL50 ? -1.0f : (NTSC ? 0.0f : -4.0f);
-	BannerProjectionWidth = (Settings.widescreen ? (Settings.PAL50 ? 616 : 620.0f) : 608.0f);
-	BannerProjectionHeight = (Settings.PAL50 ? 448.0f : (NTSC ? 470.0f : 464.0f));
+	BannerProjectionWidth = (Settings.widescreen ? (Settings.PAL50 ? 608 : 608.0f) : 608.0f);
+	BannerProjectionHeight = (Settings.PAL50 ? 456.0f : (NTSC ? 456.0f : 456.0f));
 	GCBannerScale = 1.5f;
 	GameCubeMode = GC_MODE_MIOS;
 	GameCubeSource = AUTO;

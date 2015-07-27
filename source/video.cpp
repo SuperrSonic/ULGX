@@ -98,7 +98,7 @@ static void ResetVideo_Menu()
 
 	guOrtho(FSProjection2D, 0, screenheight-1, 0, screenwidth-1, 0, 10000);
 
-	GX_SetViewport(0.0f, 0.0f, vmode->fbWidth, vmode->efbHeight, 0.0f, 1.0f);
+	GX_SetViewport(0.0f, 0.0f, vmode->fbWidth, vmode->efbHeight, 0.0f, 0.0f);
 	GX_SetBlendMode(GX_BM_BLEND, GX_BL_SRCALPHA, GX_BL_INVSRCALPHA, GX_LO_CLEAR);
 	GX_SetColorUpdate(GX_TRUE);
 	GX_SetAlphaUpdate(GX_TRUE);
@@ -123,7 +123,7 @@ void InitVideo()
 	
 	vmode = VIDEO_GetPreferredMode(NULL); // get default video mode
 
-	vmode->viWidth = Settings.widescreen ? 708 : 686;
+	vmode->viWidth = Settings.widescreen ? 704 : 686;
     vmode->fbWidth = 640;
     vmode->efbHeight = 480;
     vmode->xfbHeight = 480;

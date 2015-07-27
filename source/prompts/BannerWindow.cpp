@@ -524,7 +524,7 @@ void BannerWindow::Draw(void)
 	if(BannerAlpha == 0)
 		return;
 
-	// cut the unneeded crap
+	// cut the unneeded stuff
 	Mtx mv1, mv2, mv3;
 	guMtxIdentity (mv2);
 	guMtxIdentity (mv3);
