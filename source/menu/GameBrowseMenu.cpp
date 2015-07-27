@@ -180,7 +180,7 @@ GameBrowseMenu::GameBrowseMenu()
 	sdcardImg->SetWidescreen(Settings.widescreen);
 	sdcardImgOver->SetWidescreen(Settings.widescreen);
 	sdcardBtn = new GuiButton(sdcardImg, sdcardImgOver, 0, 3,
-							  thInt("160 - sd card btn pos x"), thInt("395 - sd card btn pos y"),
+							  thInt("20 - sd card btn pos x"), thInt("415 - sd card btn pos y"),
 							  trigA, btnSoundOver, btnSoundClick2, 1, sdcardBtnTT, 15, -30, 0, 5);
 
 	gameInfo = new GuiButton(0, 0);
@@ -311,7 +311,7 @@ GameBrowseMenu::GameBrowseMenu()
 	homebrewImgOver = new GuiImage(homebrewImgDataOver);
 	homebrewImg->SetWidescreen(Settings.widescreen);
 	homebrewImgOver->SetWidescreen(Settings.widescreen);
-	homebrewBtn = new GuiButton(homebrewImg, homebrewImgOver, ALIGN_LEFT, ALIGN_TOP, thInt("410 - HBC btn pos x"), thInt("405 - HBC btn pos y"),
+	homebrewBtn = new GuiButton(homebrewImg, homebrewImgOver, ALIGN_LEFT, ALIGN_TOP, thInt("576 - HBC btn pos x"), thInt("415 - HBC btn pos y"),
 								trigA, btnSoundOver, btnSoundClick2, 1, homebrewBtnTT, 15, -30, 1, 5);
 	//Downloading Covers
 	DownloadBtnTT = new GuiTooltip(tr( "Click to Download Covers" ));
