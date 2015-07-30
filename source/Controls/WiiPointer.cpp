@@ -146,7 +146,7 @@ void WiiPointer::Draw(GuiTrigger *t)
 			posX = LIMIT(posX, -50.0f, screenwidth+50.0f);
 			posY = LIMIT(posY, -50.0f, screenheight+50.0f);
 
-			if(lastActivity < 180) { // (3s on 60Hz and 3.6s on 50Hz)
+			if(lastActivity < 2) { // (3s on 60Hz and 3.6s on 50Hz)
 				t->wpad.ir.valid = 1;
 				t->wpad.ir.x = posX;
 				t->wpad.ir.y = posY;
